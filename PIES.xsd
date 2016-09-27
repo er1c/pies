@@ -396,16 +396,10 @@
 																		<xs:documentation>(Ref# M10)</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:element name="FileType" minOccurs="0">
+																<xs:element name="FileType" type="AssetFileType" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref# M15)</xs:documentation>
 																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="AssetFileType">
-																			<xs:maxLength value="4"/>
-																			<xs:minLength value="3"/>
-																		</xs:restriction>
-																	</xs:simpleType>
 																</xs:element>
 																<xs:element name="Representation" type="Representation" minOccurs="0">
 																	<xs:annotation>
@@ -508,15 +502,7 @@
 																	<xs:complexType>
 																		<xs:simpleContent>
 																			<xs:extension base="Duration">
-																				<xs:attribute name="UOM" use="required">
-																					<xs:simpleType>
-																						<xs:restriction base="DigitalAssetDurationUOMType">
-																							<xs:enumeration value="hh"/>
-																							<xs:enumeration value="mm"/>
-																							<xs:enumeration value="ss"/>
-																						</xs:restriction>
-																					</xs:simpleType>
-																				</xs:attribute>
+																				<xs:attribute name="UOM" type="DigitalAssetDurationUOMType" use="required"/>
 																			</xs:extension>
 																		</xs:simpleContent>
 																	</xs:complexType>
@@ -541,20 +527,15 @@
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>
-																<xs:element name="Plane" minOccurs="0">
+																<xs:element name="Plane" type="xs:positiveInteger" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref#M85)</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:element name="Hemisphere" minOccurs="0">
+																<xs:element name="Hemisphere" type="Hemisphere" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref#M86)</xs:documentation>
 																	</xs:annotation>
-																	<xs:complexType>
-																		<xs:simpleContent>
-																			<xs:extension base="Hemisphere"/>
-																		</xs:simpleContent>
-																	</xs:complexType>
 																</xs:element>
 																<xs:element name="Plunge" type="xs:integer" minOccurs="0">
 																	<xs:annotation>
@@ -2120,15 +2101,7 @@
 																	<xs:complexType>
 																		<xs:simpleContent>
 																			<xs:extension base="Duration">
-																				<xs:attribute name="UOM" use="required">
-																					<xs:simpleType>
-																						<xs:restriction base="DigitalAssetDurationUOMType">
-																							<xs:enumeration value="hh"/>
-																							<xs:enumeration value="mm"/>
-																							<xs:enumeration value="ss"/>
-																						</xs:restriction>
-																					</xs:simpleType>
-																				</xs:attribute>
+																				<xs:attribute name="UOM" type="DigitalAssetDurationUOMType" use="required"/>
 																			</xs:extension>
 																		</xs:simpleContent>
 																	</xs:complexType>
@@ -2153,20 +2126,15 @@
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>
-																<xs:element name="Plane" minOccurs="0">
+																<xs:element name="Plane" type="xs:positiveInteger" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref#P85)</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:element name="Hemisphere" minOccurs="0">
+																<xs:element name="Hemisphere" type="Hemisphere" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref#P86)</xs:documentation>
 																	</xs:annotation>
-																	<xs:complexType>
-																		<xs:simpleContent>
-																			<xs:extension base="Hemisphere"/>
-																		</xs:simpleContent>
-																	</xs:complexType>
 																</xs:element>
 																<xs:element name="Plunge" type="xs:integer" minOccurs="0">
 																	<xs:annotation>
@@ -2444,7 +2412,6 @@
 				FAB		240	Features and Benefits - 240
 				TRA		2000 Transcription - 2000
 				CAP		240	Caption - 240
-				
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
@@ -2533,7 +2500,7 @@
 			<xs:documentation>
 				Name	6.1.4 EXPI Codes
 				Field(s)	5.7.3 (Ref# E05)
-				Source:	PIES 
+				Source:	PIES
 				
 	Group			Code	Description				Format		Application
 	CORE			CCL		Core Class				AN1/8		Manufacturers Class for Core Returns
@@ -2776,7 +2743,7 @@
 				DRW	Technical Drawing
 				EBK		Ebook
 				FAB		Features and Benefits
-				FED		Full Engineering Drawing
+				FED		Full Engineering Drawing 
 				HOT		Hot Spot 
 				HMS		Hazardous Materials Info Sheet
 				INS		Installation Instructions
@@ -3076,7 +3043,7 @@
 				Source	PIES
 
 				Code	Description
-				72		
+				72
 				96
 				300
 				600
@@ -3101,8 +3068,8 @@
 				Source	PIES
 
 				Code	Description
-				A			Actual
-				R			Representative
+				A	Actual
+				R	Representative
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
