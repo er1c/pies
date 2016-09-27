@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- PIES 6.6 Schema-->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.autocare.org" targetNamespace="http://www.autocare.org" elementFormDefault="qualified" version="6.6">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.autocare.org" targetNamespace="http://www.autocare.org" elementFormDefault="qualified" version="6.7">
 	<xs:element name="PIES">
 		<xs:annotation>
 			<xs:documentation>Document Root Element</xs:documentation>
@@ -20,7 +19,7 @@
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
-										<xs:enumeration value="6.6"/>
+										<xs:enumeration value="6.7"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
@@ -397,10 +396,16 @@
 																		<xs:documentation>(Ref# M10)</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:element name="FileType" type="AssetFileType" minOccurs="0">
+																<xs:element name="FileType" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref# M15)</xs:documentation>
 																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="AssetFileType">
+																			<xs:maxLength value="4"/>
+																			<xs:minLength value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
 																</xs:element>
 																<xs:element name="Representation" type="Representation" minOccurs="0">
 																	<xs:annotation>
@@ -457,7 +462,7 @@
 																			</xs:element>
 																			<xs:element name="AssetWidth" minOccurs="0">
 																				<xs:annotation>
-																					<xs:documentation>5.13.14 (Ref# P55)</xs:documentation>
+																					<xs:documentation>(Ref# M55)</xs:documentation>
 																				</xs:annotation>
 																				<xs:simpleType>
 																					<xs:restriction base="xs:decimal">
@@ -474,28 +479,6 @@
 																			</xs:annotation>
 																		</xs:attribute>
 																	</xs:complexType>
-																</xs:element>
-																<xs:element name="AdditionalInformation" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation>(Ref# M65)</xs:documentation>
-																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="xs:string">
-																			<xs:minLength value="1"/>
-																			<xs:maxLength value="48"/>
-																		</xs:restriction>
-																	</xs:simpleType>
-																</xs:element>
-																<xs:element name="Details" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation>(Ref# M70)</xs:documentation>
-																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="xs:string">
-																			<xs:minLength value="1"/>
-																			<xs:maxLength value="80"/>
-																		</xs:restriction>
-																	</xs:simpleType>
 																</xs:element>
 																<xs:element name="FilePath" minOccurs="0">
 																	<xs:annotation>
@@ -518,20 +501,132 @@
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>
+																<xs:element name="Duration" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M81)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="Duration">
+																				<xs:attribute name="UOM" use="required">
+																					<xs:simpleType>
+																						<xs:restriction base="DigitalAssetDurationUOMType">
+																							<xs:enumeration value="hh"/>
+																							<xs:enumeration value="mm"/>
+																							<xs:enumeration value="ss"/>
+																						</xs:restriction>
+																					</xs:simpleType>
+																				</xs:attribute>
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Frame" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M83)</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:positiveInteger">
+																			<xs:totalDigits value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="TotalFrames" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M84)</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:positiveInteger">
+																			<xs:totalDigits value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="Plane" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M85)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="Hemisphere" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M86)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="Hemisphere"/>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Plunge" type="xs:integer" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M87)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="TotalPlanes" type="xs:positiveInteger" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M88)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AssetDescriptions" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M64)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Description" maxOccurs="unbounded">
+																				<xs:annotation>
+																					<xs:documentation>(Ref#M73)</xs:documentation>
+																				</xs:annotation>
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="Description">
+																							<xs:attribute name="MaintenanceType" type="MaintenanceType" use="required"/>
+																							<xs:attribute name="DescriptionCode" type="DescriptionCodeType" use="required"/>
+																							<xs:attribute name="LanguageCode">
+																								<xs:simpleType>
+																									<xs:restriction base="xs:string">
+																										<xs:length value="2"/>
+																									</xs:restriction>
+																								</xs:simpleType>
+																							</xs:attribute>
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 																<xs:element name="FileDateModified" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref M90)</xs:documentation>
+																		<xs:documentation>M90</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 																<xs:element name="EffectiveDate" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref# M91)</xs:documentation>
+																		<xs:documentation>M91</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 																<xs:element name="ExpirationDate" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref# M92)</xs:documentation>
+																		<xs:documentation>M92</xs:documentation>
 																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AssetDates" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#M93)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="AssetDate" minOccurs="1" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:date">
+																							<xs:attribute name="assetDateType" type="assetDateType"/>
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
 																</xs:element>
 																<xs:element name="Country" minOccurs="0">
 																	<xs:annotation>
@@ -888,6 +983,11 @@
 																				<xs:length value="2"/>
 																			</xs:restriction>
 																		</xs:simpleType>
+																	</xs:attribute>
+																	<xs:attribute name="Sequence" type="xs:string">
+																		<xs:annotation>
+																			<xs:documentation>(Ref# C16)</xs:documentation>
+																		</xs:annotation>
 																	</xs:attribute>
 																</xs:extension>
 															</xs:simpleContent>
@@ -1422,17 +1522,6 @@
 																					</xs:restriction>
 																				</xs:simpleType>
 																			</xs:element>
-																			<xs:element name="HazardousClass" minOccurs="0">
-																				<xs:annotation>
-																					<xs:documentation>(Ref# J30)</xs:documentation>
-																				</xs:annotation>
-																				<xs:simpleType>
-																					<xs:restriction base="xs:string">
-																						<xs:minLength value="1"/>
-																						<xs:maxLength value="10"/>
-																					</xs:restriction>
-																				</xs:simpleType>
-																			</xs:element>
 																			<xs:element name="HazardousMaterialCodeQualifier" minOccurs="0">
 																				<xs:annotation>
 																					<xs:documentation>(Ref# J31)</xs:documentation>
@@ -1440,17 +1529,6 @@
 																				<xs:simpleType>
 																					<xs:restriction base="xs:string">
 																						<xs:length value="1"/>
-																					</xs:restriction>
-																				</xs:simpleType>
-																			</xs:element>
-																			<xs:element name="HazardousMaterialClassCode" minOccurs="0">
-																				<xs:annotation>
-																					<xs:documentation>(Ref# J32)</xs:documentation>
-																				</xs:annotation>
-																				<xs:simpleType>
-																					<xs:restriction base="xs:string">
-																						<xs:minLength value="1"/>
-																						<xs:maxLength value="4"/>
 																					</xs:restriction>
 																				</xs:simpleType>
 																			</xs:element>
@@ -1609,7 +1687,7 @@
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="Kit" maxOccurs="unbounded">
+													<xs:element name="KitComponent" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>(Ref# K01)</xs:documentation>
 														</xs:annotation>
@@ -2014,28 +2092,6 @@
 																		</xs:attribute>
 																	</xs:complexType>
 																</xs:element>
-																<xs:element name="AdditionalInformation" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation>(Ref# P65)</xs:documentation>
-																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="xs:string">
-																			<xs:minLength value="1"/>
-																			<xs:maxLength value="48"/>
-																		</xs:restriction>
-																	</xs:simpleType>
-																</xs:element>
-																<xs:element name="Details" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation>(Ref# P70)</xs:documentation>
-																	</xs:annotation>
-																	<xs:simpleType>
-																		<xs:restriction base="xs:string">
-																			<xs:minLength value="1"/>
-																			<xs:maxLength value="80"/>
-																		</xs:restriction>
-																	</xs:simpleType>
-																</xs:element>
 																<xs:element name="FilePath" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>(Ref# P75)</xs:documentation>
@@ -2057,20 +2113,132 @@
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>
+																<xs:element name="Duration" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P81)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="Duration">
+																				<xs:attribute name="UOM" use="required">
+																					<xs:simpleType>
+																						<xs:restriction base="DigitalAssetDurationUOMType">
+																							<xs:enumeration value="hh"/>
+																							<xs:enumeration value="mm"/>
+																							<xs:enumeration value="ss"/>
+																						</xs:restriction>
+																					</xs:simpleType>
+																				</xs:attribute>
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Frame" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P83)</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:positiveInteger">
+																			<xs:totalDigits value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="TotalFrames" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P84)</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:positiveInteger">
+																			<xs:totalDigits value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="Plane" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P85)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="Hemisphere" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P86)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="Hemisphere"/>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Plunge" type="xs:integer" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P87)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="TotalPlanes" type="xs:positiveInteger" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P88)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AssetDescriptions" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P64)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Description" maxOccurs="unbounded">
+																				<xs:annotation>
+																					<xs:documentation>(Ref#P73)</xs:documentation>
+																				</xs:annotation>
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="Description">
+																							<xs:attribute name="MaintenanceType" type="MaintenanceType" use="required"/>
+																							<xs:attribute name="DescriptionCode" type="DescriptionCodeType" use="required"/>
+																							<xs:attribute name="LanguageCode">
+																								<xs:simpleType>
+																									<xs:restriction base="xs:string">
+																										<xs:length value="2"/>
+																									</xs:restriction>
+																								</xs:simpleType>
+																							</xs:attribute>
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 																<xs:element name="FileDateModified" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref P90)</xs:documentation>
+																		<xs:documentation>P90</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 																<xs:element name="EffectiveDate" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref# P91)</xs:documentation>
+																		<xs:documentation>P91</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 																<xs:element name="ExpirationDate" type="xs:date" minOccurs="0">
 																	<xs:annotation>
-																		<xs:documentation>(Ref# P92)</xs:documentation>
+																		<xs:documentation>P92</xs:documentation>
 																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AssetDates" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>(Ref#P93)</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="AssetDate" minOccurs="1" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:date">
+																							<xs:attribute name="assetDateType" type="assetDateType"/>
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
 																</xs:element>
 																<xs:element name="Country" minOccurs="0">
 																	<xs:annotation>
@@ -2167,7 +2335,7 @@
 	<xs:simpleType name="ExtendedProductData">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
-			<xs:maxLength value="80"/>
+			<xs:maxLength value="2000"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="QuantityPerApplication">
@@ -2273,6 +2441,10 @@
 				ASM		2000	Application Summary - 2000
 				EXT		240	Product Description - Extended 240
 				MKT 	2000 Marketing Descripton - 2000
+				FAB		240	Features and Benefits - 240
+				TRA		2000 Transcription - 2000
+				CAP		240	Caption - 240
+				
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
@@ -2291,6 +2463,9 @@
 			<xs:enumeration value="ASM"/>
 			<xs:enumeration value="EXT"/>
 			<xs:enumeration value="MKT"/>
+			<xs:enumeration value="FAB"/>
+			<xs:enumeration value="TRA"/>
+			<xs:enumeration value="CAP"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="GTINQualifier">
@@ -2358,7 +2533,7 @@
 			<xs:documentation>
 				Name	6.1.4 EXPI Codes
 				Field(s)	5.7.3 (Ref# E05)
-				Source:	PIES
+				Source:	PIES 
 				
 	Group			Code	Description				Format		Application
 	CORE			CCL		Core Class				AN1/8		Manufacturers Class for Core Returns
@@ -2387,6 +2562,8 @@
 	REGULATE	RPC		Reg, Postal Code		AN5/10		Indicates Item regulated in Postal Code
 	REGULATE	RCS		Reg. County, State	AN1/50		Indicates Item regulated in County, St (use 2 char for state)
 	REGULATE	RCT		Reg. City, State			AN1/50		Indicates Item regulated in City, St (use 2 char for state)
+	REGULATE 	RCC		Country						ID2			ISO 3166 Country Codes
+	REGULATE	RDE		Description				AN1/2000	Regulation description
 	SHIP			CTO		Country of Origin 1		ID2			ISO 3166 Country Codes
 	SHIP			CTP		Country of Origin 2		ID2			ISO 3166 Country Codes
 	SHIP			CTQ		Country of Origin 3		ID2			ISO 3166 Country Codes
@@ -2599,7 +2776,8 @@
 				DRW	Technical Drawing
 				EBK		Ebook
 				FAB		Features and Benefits
-				FED		Full Engineering Drawing 
+				FED		Full Engineering Drawing
+				HOT		Hot Spot 
 				HMS		Hazardous Materials Info Sheet
 				INS		Installation Instructions
 				ISG		Illustration Guide
@@ -2661,6 +2839,7 @@
 			<xs:enumeration value="FAB"/>
 			<xs:enumeration value="FED"/>
 			<xs:enumeration value="HMS"/>
+			<xs:enumeration value="HOT"/>
 			<xs:enumeration value="INS"/>
 			<xs:enumeration value="ISG"/>
 			<xs:enumeration value="LIN"/>
@@ -2726,6 +2905,8 @@
 				RIT	Right
 				SID	Side
 				TOP	Top
+				360	360 rotation
+				3DS	3D model
 				ZZ1	User 1
 				ZZ2	User 2
 				ZZ3	User 3
@@ -2750,6 +2931,8 @@
 			<xs:enumeration value="RIT"/>
 			<xs:enumeration value="SID"/>
 			<xs:enumeration value="TOP"/>
+			<xs:enumeration value="360"/>
+			<xs:enumeration value="3DS"/>
 			<xs:enumeration value="ZZ1"/>
 			<xs:enumeration value="ZZ2"/>
 			<xs:enumeration value="ZZ3"/>
@@ -2845,6 +3028,11 @@
 				PDF		Portable Document Format
 				DOC		MS Word
 				XLS		MS Excel
+				ZIP		Archive file format
+				RAR		Archive file format
+				7z		High compression file archive format
+				SVG		Scaler Vector Graphics format
+				XAML	Extensible Application Markup Language
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
@@ -2874,6 +3062,10 @@
 			<xs:enumeration value="PDF"/>
 			<xs:enumeration value="DOC"/>
 			<xs:enumeration value="XLS"/>
+			<xs:enumeration value="ZIP"/>
+			<xs:enumeration value="RAR"/>
+			<xs:enumeration value="SVG"/>
+			<xs:enumeration value="XAML"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="Resolution">
@@ -2884,7 +3076,7 @@
 				Source	PIES
 
 				Code	Description
-				72
+				72		
 				96
 				300
 				600
@@ -2909,13 +3101,54 @@
 				Source	PIES
 
 				Code	Description
-				A	Actual
-				R	Representative
+				A			Actual
+				R			Representative
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="A"/>
 			<xs:enumeration value="R"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Duration">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:totalDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DigitalAssetDurationUOMType">
+		<xs:annotation>
+			<xs:documentation>
+				Name	Ref#P82
+				Field(s)			
+				Source convention	
+				
+				Code	Description
+				ss		Second
+				mm		Minute
+				hh		Hour									
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ss"/>
+			<xs:enumeration value="mm"/>
+			<xs:enumeration value="hh"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Hemisphere">
+		<xs:annotation>
+			<xs:documentation>
+			Name 	(Ref#86)	
+			Field(s)			
+			Source convention	
+			
+			Code	Description
+			N			Northern
+			S			Southern
+		</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="S"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="QualityGradeLevel">
@@ -3005,13 +3238,27 @@
 	<xs:simpleType name="PartNumberType">
 		<xs:annotation>
 			<xs:documentation>
-				Name	PertInterchange Part Number Type
+				Name	PartInterchange Part Number Type
 				Field		(Ref# N20)
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="48"/>
 			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="assetDateType">
+		<xs:annotation>
+			<xs:documentation>
+		Asset Date Type
+				Field		(Ref# P95)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOD"/>
+			<xs:enumeration value="CRE"/>
+			<xs:enumeration value="EFF"/>
+			<xs:enumeration value="EXP"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
